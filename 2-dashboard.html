@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Market - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app-helper.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans" onload="initDashboard()">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-72 bg-gradient-to-b from-green-950 to-green-800 text-white p-6 flex flex-col justify-between overflow-y-auto">
+            <div>
+                <div class="flex items-center gap-3 mb-10">
+                    <div class="w-10 h-10 rounded-xl bg-green-500 flex items-center justify-center font-bold text-xl">
+                        S
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold">Smart Market</h1>
+                        <p class="text-sm text-green-200">Gestão Inteligente</p>
+                    </div>
+                </div>
+
+                <nav class="space-y-3">
+                    <a href="2-dashboard.html" class="w-full text-left px-4 py-3 rounded-xl transition-all bg-green-500 text-white shadow-lg font-medium block">
+                        📊 Dashboard
+                    </a>
+                    <a href="10-previsao-demanda.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📈 Previsão de Demanda
+                    </a>
+                    <a href="9-estoque.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📦 Estoque
+                    </a>
+                    <a href="6-base-dados-fornecedores.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🚚 Fornecedores
+                    </a>
+                    <a href="5-base-dados-produtos.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🏷️ Produtos
+                    </a>
+                    <a href="11-compra.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🛒 Compras
+                    </a>
+                    <a href="7-alertas-validade.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🔔 Alertas
+                    </a>
+                    <a href="8-sustentabilidade.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🌱 Sustentabilidade
+                    </a>
+                    <a href="12-relatorio.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📋 Relatórios
+                    </a>
+                    <a href="#" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        ⚙️ Configurações
+                    </a>
+                </nav>
+            </div>
+
+            <button onclick="doLogout()" class="w-full bg-white/10 hover:bg-white/20 transition-all py-3 rounded-xl font-medium">
+                👤 Sair
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto">
+            <div class="p-8">
+                <!-- Header -->
+                <div class="mb-8">
+                    <h1 class="text-4xl font-bold text-gray-800 mb-2">Dashboard</h1>
+                    <p class="text-gray-600">Bem-vindo! Aqui está um resumo do seu estoque e vendas.</p>
+                </div>
+
+                <!-- KPI Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <!-- Vendas Hoje -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-green-500">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm font-medium">Vendas Hoje</p>
+                                <h3 id="sales" class="text-3xl font-bold text-gray-800 mt-2">R$ 4.285</h3>
+                                <p class="text-green-600 text-sm mt-2">↑ 12% vs ontem</p>
+                            </div>
+                            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-2xl">
+                                💰
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Produtos em Estoque -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-blue-500">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm font-medium">Produtos em Estoque</p>
+                                <h3 id="stockCount" class="text-3xl font-bold text-gray-800 mt-2">0</h3>
+                                <p class="text-blue-600 text-sm mt-2">↓ 5% vs semana passada</p>
+                            </div>
+                            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-2xl">
+                                📦
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fornecedores Ativos -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-orange-500">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm font-medium">Fornecedores Ativos</p>
+                                <h3 id="activeSuppliers" class="text-3xl font-bold text-gray-800 mt-2">0</h3>
+                                <p class="text-orange-600 text-sm mt-2">✓ Todos operacionais</p>
+                            </div>
+                            <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-2xl">
+                                🚚
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Taxa ML -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-purple-500">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm font-medium">Taxa Acurácia ML</p>
+                                <h3 id="accuracy" class="text-3xl font-bold text-gray-800 mt-2">94.2%</h3>
+                                <p class="text-purple-600 text-sm mt-2">↑ 2.3% vs mês passado</p>
+                            </div>
+                            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-2xl">
+                                🤖
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-2xl">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Produtos em Estoque -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-blue-500">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm font-medium">Produtos em Estoque</p>
+                                <h3 class="text-3xl font-bold text-gray-800 mt-2">1.234</h3>
+                                <p class="text-blue-600 text-sm mt-2">↓ 5% vs semana passada</p>
+                            </div>
+                            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-2xl">
+                                📦
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Próximos a Vencer -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-red-500">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm font-medium">Próximos a Vencer</p>
+                                <h3 class="text-3xl font-bold text-gray-800 mt-2">45</h3>
+                                <p class="text-red-600 text-sm mt-2">Ação recomendada</p>
+                            </div>
+                            <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center text-2xl">
+                                ⏰
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CO₂ Evitado -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-purple-500">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm font-medium">CO₂ Evitado (mês)</p>
+                                <h3 class="text-3xl font-bold text-gray-800 mt-2">156 kg</h3>
+                                <p class="text-purple-600 text-sm mt-2">↑ 8% vs mês anterior</p>
+                            </div>
+                            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-2xl">
+                                🌱
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <!-- Vendas por Categoria -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-6">Vendas por Categoria</h2>
+                        <div class="relative h-80">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Top Produtos -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-6">Top 5 Produtos Mais Vendidos</h2>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center text-xl">🍎</div>
+                                    <div>
+                                        <p class="font-semibold text-gray-800">Maçã Vermelha</p>
+                                        <p class="text-sm text-gray-500">Hortifrúti</p>
+                                    </div>
+                                </div>
+                                <p class="font-bold text-gray-800">342 un</p>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-xl">🥛</div>
+                                    <div>
+                                        <p class="font-semibold text-gray-800">Leite Integral</p>
+                                        <p class="text-sm text-gray-500">Laticínios</p>
+                                    </div>
+                                </div>
+                                <p class="font-bold text-gray-800">298 un</p>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center text-xl">🍅</div>
+                                    <div>
+                                        <p class="font-semibold text-gray-800">Tomate Caqui</p>
+                                        <p class="text-sm text-gray-500">Hortifrúti</p>
+                                    </div>
+                                </div>
+                                <p class="font-bold text-gray-800">267 un</p>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center text-xl">🥩</div>
+                                    <div>
+                                        <p class="font-semibold text-gray-800">Peito de Frango</p>
+                                        <p class="text-sm text-gray-500">Carnes</p>
+                                    </div>
+                                </div>
+                                <p class="font-bold text-gray-800">156 un</p>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-xl">🧡</div>
+                                    <div>
+                                        <p class="font-semibold text-gray-800">Laranja Pera</p>
+                                        <p class="text-sm text-gray-500">Hortifrúti</p>
+                                    </div>
+                                </div>
+                                <p class="font-bold text-gray-800">143 un</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estoque vs Demanda -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Gráfico de linha -->
+                    <div class="lg:col-span-2 bg-white rounded-2xl shadow-lg p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-6">Estoque vs Demanda Prevista (últimos 7 dias)</h2>
+                        <div class="relative h-80">
+                            <canvas id="stockChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Alertas Importantes -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-6">Alertas Importantes</h2>
+                        <div class="space-y-3">
+                            <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg">
+                                <p class="font-semibold text-red-800 text-sm">⚠️ Vencimento Iminente</p>
+                                <p class="text-red-700 text-xs mt-1">12 un de Leite Integral vencem amanhã</p>
+                            </div>
+                            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-lg">
+                                <p class="font-semibold text-yellow-800 text-sm">⚡ Estoque Baixo</p>
+                                <p class="text-yellow-700 text-xs mt-1">Maçã Vermelha com 15 un restantes</p>
+                            </div>
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg">
+                                <p class="font-semibold text-blue-800 text-sm">📊 Pico de Demanda</p>
+                                <p class="text-blue-700 text-xs mt-1">Previsão de 45% aumento no fim de semana</p>
+                            </div>
+                            <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-lg">
+                                <p class="font-semibold text-green-800 text-sm">✅ Desconto Recomendado</p>
+                                <p class="text-green-700 text-xs mt-1">Aplicar 20% em Tomate Caqui</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Gráfico de Vendas por Categoria
+        const salesCtx = document.getElementById('salesChart').getContext('2d');
+        new Chart(salesCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Hortifrúti', 'Laticínios', 'Carnes', 'Bebidas', 'Congelados'],
+                datasets: [{
+                    data: [28, 22, 18, 20, 12],
+                    backgroundColor: [
+                        '#10b981',
+                        '#3b82f6',
+                        '#ef4444',
+                        '#f59e0b',
+                        '#8b5cf6'
+                    ],
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            font: { size: 12, weight: 'bold' }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Gráfico de Estoque vs Demanda
+        const stockCtx = document.getElementById('stockChart').getContext('2d');
+        new Chart(stockCtx, {
+            type: 'line',
+            data: {
+                labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'],
+                datasets: [
+                    {
+                        label: 'Estoque Atual',
+                        data: [1200, 1150, 1100, 1050, 950, 850, 750],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Demanda Prevista',
+                        data: [950, 1000, 1100, 1150, 1250, 1350, 1400],
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { font: { size: 12, weight: 'bold' } }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 1500
+                    }
+                }
+            }
+        });
+    </script>
+
+    <script>
+        // Inicializar Dashboard
+        async function initDashboard() {
+            checkAuth();
+            await loadDashboardData();
+        }
+
+        // Carregar dados do dashboard
+        async function loadDashboardData() {
+            try {
+                const products = await getProducts();
+                const suppliers = await getSuppliers();
+
+                // Atualizar cards
+                document.getElementById('stockCount').textContent = products.length;
+                document.getElementById('activeSuppliers').textContent = suppliers.filter(s => s.status === 'Ativo').length;
+
+                // Calcular dados por categoria
+                const categoryData = {};
+                products.forEach(p => {
+                    if (!categoryData[p.categoria]) {
+                        categoryData[p.categoria] = 0;
+                    }
+                    categoryData[p.categoria]++;
+                });
+
+                // Atualizar gráfico de distribuição
+                const ctx = document.getElementById('stockChart').getContext('2d');
+                ctx.canvas.parentElement.parentElement.innerHTML = '<canvas id="stockChart"></canvas>';
+                const newCtx = document.getElementById('stockChart').getContext('2d');
+                
+                new Chart(newCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: Object.keys(categoryData),
+                        datasets: [{
+                            data: Object.values(categoryData),
+                            backgroundColor: [
+                                '#10B981', '#3B82F6', '#F59E0B', '#EF4444', '#8B5CF6'
+                            ],
+                            borderColor: '#fff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: { font: { size: 12, weight: 'bold' } }
+                            }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+            }
+        }
+
+        // Logout
+        function doLogout() {
+            logout();
+            window.location.href = '/1-login.html';
+        }
+    </script>
+</body>
+</html>

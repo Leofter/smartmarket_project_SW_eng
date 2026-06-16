@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios | Smart Market</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app-helper.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-72 bg-gradient-to-b from-green-950 to-green-800 text-white p-6 flex flex-col justify-between overflow-y-auto">
+            <div>
+                <div class="flex items-center gap-3 mb-10">
+                    <div class="w-10 h-10 rounded-xl bg-green-500 flex items-center justify-center font-bold text-xl">
+                        S
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold">Smart Market</h1>
+                        <p class="text-sm text-green-200">Gestão Inteligente</p>
+                    </div>
+                </div>
+
+                <nav class="space-y-3">
+                    <a href="2-dashboard.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📊 Dashboard
+                    </a>
+                    <a href="10-previsao-demanda.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📈 Previsão de Demanda
+                    </a>
+                    <a href="9-estoque.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📦 Estoque
+                    </a>
+                    <a href="6-base-dados-fornecedores.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🚚 Fornecedores
+                    </a>
+                    <a href="5-base-dados-produtos.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🏷️ Produtos
+                    </a>
+                    <a href="11-compra.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🛒 Compras
+                    </a>
+                    <a href="7-alertas-validade.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🔔 Alertas
+                    </a>
+                    <a href="8-sustentabilidade.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🌱 Sustentabilidade
+                    </a>
+                    <a href="12-relatorio.html" class="w-full text-left px-4 py-3 rounded-xl transition-all bg-green-500 text-white shadow-lg font-medium block">
+                        📋 Relatórios
+                    </a>
+                    <a href="#" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        ⚙️ Configurações
+                    </a>
+                </nav>
+            </div>
+
+            <button onclick="doLogout()" class="w-full bg-white/10 hover:bg-white/20 transition-all py-3 rounded-xl font-medium">
+                👤 Sair
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto p-10">
+            <div class="bg-white rounded-3xl shadow-xl p-10">
+                <!-- Header -->
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <p class="text-sm text-gray-500 mb-2">Dados & Analytics > Relatórios</p>
+                        <h1 class="text-4xl font-bold text-gray-800">Relatórios e Análises</h1>
+                        <p class="text-gray-600 mt-2">Gere relatórios customizados, análises e exporte dados</p>
+                    </div>
+                    <button onclick="goBack()" class="border border-gray-300 px-6 py-3 rounded-xl hover:bg-gray-100 transition-all font-medium">
+                        ← Voltar
+                    </button>
+                </div>
+
+                <!-- Filtros -->
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl border border-green-200 p-6 mb-8">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4 text-green-700">Filtros</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Período De</label>
+                            <input type="date" class="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-green-500 transition-all bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Período Até</label>
+                            <input type="date" class="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-green-500 transition-all bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Categoria</label>
+                            <select class="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-green-500 transition-all bg-white">
+                                <option>Todas</option>
+                                <option>Bebidas</option>
+                                <option>Laticínios</option>
+                                <option>Congelados</option>
+                                <option>Carnes</option>
+                                <option>Frutas & Legumes</option>
+                            </select>
+                        </div>
+                        <div class="flex items-end gap-2">
+                            <button class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded-xl transition shadow-lg">Filtrar</button>
+                            <button class="px-4 bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold py-2 rounded-xl transition">Reset</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs de Relatórios -->
+                <div class="mb-8">
+                    <div class="flex gap-8 mb-4 border-b-2 border-gray-300">
+                        <button class="pb-3 font-semibold text-green-600 border-b-2 border-green-600 cursor-pointer text-lg" onclick="switchTab('vendas')">
+                            Vendas
+                        </button>
+                        <button class="pb-3 font-semibold text-gray-600 hover:text-gray-900 cursor-pointer text-lg" onclick="switchTab('compras')">
+                            Compras
+                        </button>
+                        <button class="pb-3 font-semibold text-gray-600 hover:text-gray-900 cursor-pointer text-lg" onclick="switchTab('financeiro')">
+                            Financeiro
+                        </button>
+                        <button class="pb-3 font-semibold text-gray-600 hover:text-gray-900 cursor-pointer text-lg" onclick="switchTab('estoque')">
+                            Estoque
+                        </button>
+                    </div>
+
+                    <!-- Tab Vendas -->
+                    <div id="vendas-tab" class="bg-white rounded-2xl border border-gray-200 shadow p-6">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-900 mb-4 text-green-700">Faturamento por Categoria</h4>
+                                <canvas id="vendasCategoriaChart" height="300"></canvas>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-900 mb-4 text-green-700">Evolução de Vendas (30 dias)</h4>
+                                <canvas id="vendasTrendChart" height="300"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="bg-green-50 rounded-2xl p-6 mb-6 border border-green-200">
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 text-green-700">Resumo de Vendas</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-white p-4 rounded-xl border border-gray-200">
+                                    <p class="text-gray-600 text-sm">Total de Vendas</p>
+                                    <p class="text-2xl font-bold text-green-600 mt-2">R$ 125.430</p>
+                                    <p class="text-green-600 text-xs mt-1">+15% vs período anterior</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-gray-200">
+                                    <p class="text-gray-600 text-sm">Ticket Médio</p>
+                                    <p class="text-2xl font-bold text-green-600 mt-2">R$ 234,50</p>
+                                    <p class="text-green-600 text-xs mt-1">+8% vs período anterior</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-gray-200">
+                                    <p class="text-gray-600 text-sm">Quantidade de Transações</p>
+                                    <p class="text-2xl font-bold text-green-600 mt-2">535</p>
+                                    <p class="text-green-600 text-xs mt-1">+12% vs período anterior</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 text-green-700">Top 10 Produtos Mais Vendidos</h4>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm">
+                                    <thead class="bg-gray-50 border-b-2 border-gray-200">
+                                        <tr>
+                                            <th class="px-4 py-3 text-left font-semibold text-gray-700">Ranking</th>
+                                            <th class="px-4 py-3 text-left font-semibold text-gray-700">Produto</th>
+                                            <th class="px-4 py-3 text-left font-semibold text-gray-700">Quantidade</th>
+                                            <th class="px-4 py-3 text-left font-semibold text-gray-700">Faturamento</th>
+                                            <th class="px-4 py-3 text-left font-semibold text-gray-700">% Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200">
+                                        <tr class="hover:bg-gray-50 transition">
+                                            <td class="px-4 py-3">1</td>
+                                            <td class="px-4 py-3 font-semibold text-gray-900">Coca-Cola 2L</td>
+                                            <td class="px-4 py-3">1.250</td>
+                                            <td class="px-4 py-3 text-green-600 font-semibold">R$ 9.375</td>
+                                            <td class="px-4 py-3">7,5%</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 transition">
+                                            <td class="px-4 py-3">2</td>
+                                            <td class="px-4 py-3 font-semibold text-gray-900">Pão Francês</td>
+                                            <td class="px-4 py-3">890</td>
+                                            <td class="px-4 py-3 text-green-600 font-semibold">R$ 7.120</td>
+                                            <td class="px-4 py-3">5,7%</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 transition">
+                                            <td class="px-4 py-3">3</td>
+                                            <td class="px-4 py-3 font-semibold text-gray-900">Leite Integral 1L</td>
+                                            <td class="px-4 py-3">756</td>
+                                            <td class="px-4 py-3 text-green-600 font-semibold">R$ 5.292</td>
+                                            <td class="px-4 py-3">4,2%</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 transition">
+                                            <td class="px-4 py-3">4</td>
+                                            <td class="px-4 py-3 font-semibold text-gray-900">Iogurte Natural 500g</td>
+                                            <td class="px-4 py-3">640</td>
+                                            <td class="px-4 py-3 text-green-600 font-semibold">R$ 2.688</td>
+                                            <td class="px-4 py-3">2,1%</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 transition">
+                                            <td class="px-4 py-3">5</td>
+                                            <td class="px-4 py-3 font-semibold text-gray-900">Frango Congelado 1kg</td>
+                                            <td class="px-4 py-3">520</td>
+                                            <td class="px-4 py-3 text-green-600 font-semibold">R$ 10.400</td>
+                                            <td class="px-4 py-3">8,3%</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 transition">
+                                            <td class="px-4 py-3">6</td>
+                                            <td class="px-4 py-3 font-semibold text-gray-900">Arroz Tipo 1 5kg</td>
+                                            <td class="px-4 py-3">385</td>
+                                            <td class="px-4 py-3 text-green-600 font-semibold">R$ 5.040</td>
+                                            <td class="px-4 py-3">4,0%</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 transition">
+                                            <td class="px-4 py-3">7</td>
+                                            <td class="px-4 py-3 font-semibold text-gray-900">Óleo Soja 900ml</td>
+                                            <td class="px-4 py-3">420</td>
+                                            <td class="px-4 py-3 text-green-600 font-semibold">R$ 2.940</td>
+                                            <td class="px-4 py-3">2,3%</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 transition">
+                                            <td class="px-4 py-3">8</td>
+                                            <td class="px-4 py-3 font-semibold text-gray-900">Feijão Preto 1kg</td>
+                                            <td class="px-4 py-3">305</td>
+                                            <td class="px-4 py-3 text-green-600 font-semibold">R$ 2.135</td>
+                                            <td class="px-4 py-3">1,7%</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 transition">
+                                            <td class="px-4 py-3">9</td>
+                                            <td class="px-4 py-3 font-semibold text-gray-900">Molho de Tomate 340g</td>
+                                            <td class="px-4 py-3">675</td>
+                                            <td class="px-4 py-3 text-green-600 font-semibold">R$ 2.362</td>
+                                            <td class="px-4 py-3">1,9%</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 transition">
+                                            <td class="px-4 py-3">10</td>
+                                            <td class="px-4 py-3 font-semibold text-gray-900">Café 500g</td>
+                                            <td class="px-4 py-3">290</td>
+                                            <td class="px-4 py-3 text-green-600 font-semibold">R$ 4.350</td>
+                                            <td class="px-4 py-3">3,5%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Compras (hidden by default) -->
+                    <div id="compras-tab" class="bg-white rounded-2xl border border-gray-200 shadow p-6 hidden">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-900 mb-4 text-green-700">Compras por Fornecedor</h4>
+                                <canvas id="comprasFornecedorChart" height="300"></canvas>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-900 mb-4 text-green-700">Evolução de Compras (30 dias)</h4>
+                                <canvas id="comprasTrendChart" height="300"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="bg-green-50 rounded-2xl p-6 border border-green-200">
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 text-green-700">Resumo de Compras</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-white p-4 rounded-xl border border-gray-200">
+                                    <p class="text-gray-600 text-sm">Total de Compras</p>
+                                    <p class="text-2xl font-bold text-green-600 mt-2">R$ 89.250</p>
+                                    <p class="text-green-600 text-xs mt-1">+12% vs período anterior</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-gray-200">
+                                    <p class="text-gray-600 text-sm">Número de Pedidos</p>
+                                    <p class="text-2xl font-bold text-green-600 mt-2">45</p>
+                                    <p class="text-green-600 text-xs mt-1">+8% vs período anterior</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-gray-200">
+                                    <p class="text-gray-600 text-sm">Ticket Médio</p>
+                                    <p class="text-2xl font-bold text-green-600 mt-2">R$ 1.983</p>
+                                    <p class="text-orange-600 text-xs mt-1">+2% vs período anterior</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Financeiro (hidden by default) -->
+                    <div id="financeiro-tab" class="bg-white rounded-2xl border border-gray-200 shadow p-6 hidden">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-900 mb-4 text-green-700">Fluxo de Caixa</h4>
+                                <canvas id="fluxoCaixaChart" height="300"></canvas>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-900 mb-4 text-green-700">Margem de Lucro</h4>
+                                <canvas id="margemChart" height="300"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="bg-green-50 rounded-2xl p-6 border border-green-200">
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 text-green-700">Resumo Financeiro</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <div class="bg-green-50 p-4 rounded-xl border-l-4 border-green-500 border border-green-200">
+                                    <p class="text-gray-600 text-sm">Receita Total</p>
+                                    <p class="text-2xl font-bold text-green-600 mt-2">R$ 125.430</p>
+                                </div>
+                                <div class="bg-red-50 p-4 rounded-xl border-l-4 border-red-500 border border-red-200">
+                                    <p class="text-gray-600 text-sm">Despesa Total</p>
+                                    <p class="text-2xl font-bold text-red-600 mt-2">R$ 89.250</p>
+                                </div>
+                                <div class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500 border border-blue-200">
+                                    <p class="text-gray-600 text-sm">Lucro Bruto</p>
+                                    <p class="text-2xl font-bold text-blue-600 mt-2">R$ 36.180</p>
+                                </div>
+                                <div class="bg-purple-50 p-4 rounded-xl border-l-4 border-purple-500 border border-purple-200">
+                                    <p class="text-gray-600 text-sm">Margem (%)</p>
+                                    <p class="text-2xl font-bold text-purple-600 mt-2">28,8%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Estoque (hidden by default) -->
+                    <div id="estoque-tab" class="bg-white rounded-2xl border border-gray-200 shadow p-6 hidden">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-900 mb-4 text-green-700">Movimentação de Estoque</h4>
+                                <canvas id="movimentacaoChart" height="300"></canvas>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-900 mb-4 text-green-700">Valor de Estoque por Categoria</h4>
+                                <canvas id="estoqueValorChart" height="300"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="bg-green-50 rounded-2xl p-6 border border-green-200">
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 text-green-700">Resumo de Estoque</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <div class="bg-white p-4 rounded-xl border border-gray-200">
+                                    <p class="text-gray-600 text-sm">Total Produtos</p>
+                                    <p class="text-2xl font-bold text-gray-900 mt-2">1.234</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-gray-200">
+                                    <p class="text-gray-600 text-sm">Valor Total Estoque</p>
+                                    <p class="text-2xl font-bold text-gray-900 mt-2">R$ 245.890</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-gray-200">
+                                    <p class="text-gray-600 text-sm">Produtos Críticos</p>
+                                    <p class="text-2xl font-bold text-red-600 mt-2">8</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-gray-200">
+                                    <p class="text-gray-600 text-sm">Rotatividade Média (dias)</p>
+                                    <p class="text-2xl font-bold text-gray-900 mt-2">12,5</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exportar Relatório -->
+                <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl border border-purple-200 shadow p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4 text-purple-700">Exportar Relatório</h3>
+                    <div class="flex gap-4 flex-wrap">
+                        <button class="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-xl transition shadow-lg">
+                            <span>📄</span> PDF
+                        </button>
+                        <button class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-xl transition shadow-lg">
+                            <span>📊</span> Excel
+                        </button>
+                        <button class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-xl transition shadow-lg">
+                            <span>📋</span> CSV
+                        </button>
+                        <button class="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-xl transition shadow-lg">
+                            <span>💾</span> JSON
+                        </button>
+                        <button class="flex items-center gap-2 bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-xl transition shadow-lg">
+                            <span>✉️</span> Email
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Inicialização
+        function goBack() {
+            window.location.href = '2-dashboard.html';
+        }
+
+        function doLogout() {
+            logout();
+            window.location.href = '1-login.html';
+        }
+
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.getElementById('vendas-tab').classList.add('hidden');
+            document.getElementById('compras-tab').classList.add('hidden');
+            document.getElementById('financeiro-tab').classList.add('hidden');
+            document.getElementById('estoque-tab').classList.add('hidden');
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('button[onclick^="switchTab"]');
+            buttons.forEach(btn => {
+                btn.classList.remove('border-b-2', 'border-green-600', 'text-green-600');
+                btn.classList.add('text-gray-600', 'hover:text-gray-900');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.remove('hidden');
+
+            // Add active class to clicked button
+            event.target.classList.remove('text-gray-600', 'hover:text-gray-900');
+            event.target.classList.add('border-b-2', 'border-green-600', 'text-green-600');
+
+            // Create/update charts for the tab
+            setTimeout(() => {
+                if (tabName === 'vendas') {
+                    createVendasCharts();
+                } else if (tabName === 'compras') {
+                    createComprasCharts();
+                } else if (tabName === 'financeiro') {
+                    createFinanceiroCharts();
+                } else if (tabName === 'estoque') {
+                    createEstoqueCharts();
+                }
+            }, 100);
+        }
+
+        function createVendasCharts() {
+            // Faturamento por Categoria
+            const ctx1 = document.getElementById('vendasCategoriaChart');
+            if (ctx1 && !ctx1.dataset.chartCreated) {
+                new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Bebidas', 'Laticínios', 'Congelados', 'Carnes', 'Frutas', 'Secos'],
+                        datasets: [{
+                            label: 'Faturamento (R$)',
+                            data: [28500, 25300, 22100, 18900, 16200, 14430],
+                            backgroundColor: ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899'],
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: { legend: { display: true } },
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+                ctx1.dataset.chartCreated = true;
+            }
+
+            // Evolução de Vendas
+            const ctx2 = document.getElementById('vendasTrendChart');
+            if (ctx2 && !ctx2.dataset.chartCreated) {
+                new Chart(ctx2, {
+                    type: 'line',
+                    data: {
+                        labels: ['Dia 1', 'Dia 5', 'Dia 10', 'Dia 15', 'Dia 20', 'Dia 25', 'Dia 30'],
+                        datasets: [{
+                            label: 'Vendas (R$)',
+                            data: [3200, 4100, 3800, 4900, 4500, 4200, 5230],
+                            borderColor: '#10B981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            borderWidth: 3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: { legend: { display: true } },
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+                ctx2.dataset.chartCreated = true;
+            }
+        }
+
+        function createComprasCharts() {
+            const ctx1 = document.getElementById('comprasFornecedorChart');
+            if (ctx1 && !ctx1.dataset.chartCreated) {
+                new Chart(ctx1, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['BevCorp', 'CongelaCold', 'LactoPure', 'FrutaFresh', 'CarnesQuality'],
+                        datasets: [{
+                            data: [23, 21, 19, 18, 19],
+                            backgroundColor: ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6'],
+                        }]
+                    },
+                    options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+                });
+                ctx1.dataset.chartCreated = true;
+            }
+
+            const ctx2 = document.getElementById('comprasTrendChart');
+            if (ctx2 && !ctx2.dataset.chartCreated) {
+                new Chart(ctx2, {
+                    type: 'line',
+                    data: {
+                        labels: ['Dia 1', 'Dia 5', 'Dia 10', 'Dia 15', 'Dia 20', 'Dia 25', 'Dia 30'],
+                        datasets: [{
+                            label: 'Compras (R$)',
+                            data: [2500, 3200, 2800, 4100, 3500, 2900, 3650],
+                            borderColor: '#3B82F6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            borderWidth: 3
+                        }]
+                    },
+                    options: { responsive: true, plugins: { legend: { display: true } }, scales: { y: { beginAtZero: true } } }
+                });
+                ctx2.dataset.chartCreated = true;
+            }
+        }
+
+        function createFinanceiroCharts() {
+            const ctx1 = document.getElementById('fluxoCaixaChart');
+            if (ctx1 && !ctx1.dataset.chartCreated) {
+                new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Dia 5', 'Dia 10', 'Dia 15', 'Dia 20', 'Dia 25', 'Dia 30'],
+                        datasets: [
+                            {
+                                label: 'Receita',
+                                data: [5000, 6200, 5800, 7100, 6500, 6230],
+                                backgroundColor: '#10B981'
+                            },
+                            {
+                                label: 'Despesa',
+                                data: [3200, 3800, 3500, 4200, 3800, 3650],
+                                backgroundColor: '#EF4444'
+                            }
+                        ]
+                    },
+                    options: { responsive: true, plugins: { legend: { display: true } }, scales: { y: { beginAtZero: true } } }
+                });
+                ctx1.dataset.chartCreated = true;
+            }
+
+            const ctx2 = document.getElementById('margemChart');
+            if (ctx2 && !ctx2.dataset.chartCreated) {
+                new Chart(ctx2, {
+                    type: 'line',
+                    data: {
+                        labels: ['Dia 5', 'Dia 10', 'Dia 15', 'Dia 20', 'Dia 25', 'Dia 30'],
+                        datasets: [{
+                            label: 'Margem (%)',
+                            data: [36, 39, 40, 41, 42, 41],
+                            borderColor: '#8B5CF6',
+                            backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            borderWidth: 3
+                        }]
+                    },
+                    options: { responsive: true, plugins: { legend: { display: true } }, scales: { y: { beginAtZero: true, max: 100 } } }
+                });
+                ctx2.dataset.chartCreated = true;
+            }
+        }
+
+        function createEstoqueCharts() {
+            const ctx1 = document.getElementById('movimentacaoChart');
+            if (ctx1 && !ctx1.dataset.chartCreated) {
+                new Chart(ctx1, {
+                    type: 'line',
+                    data: {
+                        labels: ['Dia 5', 'Dia 10', 'Dia 15', 'Dia 20', 'Dia 25', 'Dia 30'],
+                        datasets: [
+                            {
+                                label: 'Entradas',
+                                data: [450, 520, 480, 560, 510, 490],
+                                borderColor: '#10B981',
+                                tension: 0.4,
+                                borderWidth: 2
+                            },
+                            {
+                                label: 'Saídas',
+                                data: [380, 420, 410, 450, 440, 430],
+                                borderColor: '#EF4444',
+                                tension: 0.4,
+                                borderWidth: 2
+                            }
+                        ]
+                    },
+                    options: { responsive: true, plugins: { legend: { display: true } }, scales: { y: { beginAtZero: true } } }
+                });
+                ctx1.dataset.chartCreated = true;
+            }
+
+            const ctx2 = document.getElementById('estoqueValorChart');
+            if (ctx2 && !ctx2.dataset.chartCreated) {
+                new Chart(ctx2, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Bebidas', 'Laticínios', 'Congelados', 'Carnes', 'Outros'],
+                        datasets: [{
+                            data: [65000, 58000, 72000, 35000, 15890],
+                            backgroundColor: ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6'],
+                        }]
+                    },
+                    options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+                });
+                ctx2.dataset.chartCreated = true;
+            }
+        }
+
+        // Initialize vendas charts on page load
+        window.addEventListener('load', createVendasCharts);
+    </script>
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Market - Base de Dados de Fornecedores</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="app-helper.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans" onload="initPage()">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-72 bg-gradient-to-b from-green-950 to-green-800 text-white p-6 flex flex-col justify-between overflow-y-auto">
+            <div>
+                <div class="flex items-center gap-3 mb-10">
+                    <div class="w-10 h-10 rounded-xl bg-green-500 flex items-center justify-center font-bold text-xl">
+                        S
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold">Smart Market</h1>
+                        <p class="text-sm text-green-200">Gestão Inteligente</p>
+                    </div>
+                </div>
+
+                <nav class="space-y-3">
+                    <a href="2-dashboard.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📊 Dashboard
+                    </a>
+                    <a href="10-previsao-demanda.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📈 Previsão de Demanda
+                    </a>
+                    <a href="9-estoque.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📦 Estoque
+                    </a>
+                    <a href="6-base-dados-fornecedores.html" class="w-full text-left px-4 py-3 rounded-xl transition-all bg-green-500 text-white shadow-lg font-medium block">
+                        🚚 Fornecedores
+                    </a>
+                    <a href="5-base-dados-produtos.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🏷️ Produtos
+                    </a>
+                    <a href="11-compra.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🛒 Compras
+                    </a>
+                    <a href="7-alertas-validade.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🔔 Alertas
+                    </a>
+                    <a href="8-sustentabilidade.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🌱 Sustentabilidade
+                    </a>
+                    <a href="12-relatorio.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📋 Relatórios
+                    </a>
+                    <a href="#" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        ⚙️ Configurações
+                    </a>
+                </nav>
+            </div>
+
+            <button onclick="doLogout()" class="w-full bg-white/10 hover:bg-white/20 transition-all py-3 rounded-xl font-medium">
+                👤 Sair
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto p-10">
+            <div class="bg-white rounded-3xl shadow-xl p-10">
+                <!-- Header -->
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <p class="text-sm text-gray-500 mb-2">Fornecedores > Base de Dados</p>
+                        <h1 class="text-4xl font-bold text-gray-800">Base de Dados de Fornecedores</h1>
+                        <p class="text-gray-500 mt-2">Visualize, pesquise e gerencie todos os fornecedores cadastrados no sistema.</p>
+                    </div>
+                    <button onclick="window.location.href='/4-cadastro-fornecedores.html'" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg transition-all">
+                        ➕ Novo Fornecedor
+                    </button>
+                </div>
+
+                <!-- Filtros e Pesquisa -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+                    <div class="lg:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Pesquisar Fornecedor</label>
+                        <input 
+                            type="text" 
+                            id="searchInput"
+                            placeholder="Nome, CNPJ ou e-mail..." 
+                            class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"
+                        />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Tipo</label>
+                        <select id="typeFilter" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all bg-white">
+                            <option value="">Todos</option>
+                            <option>Hortifruti</option>
+                            <option>Laticínios</option>
+                            <option>Carnes</option>
+                            <option>Bebidas</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                        <select id="statusFilter" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all bg-white">
+                            <option value="">Todos</option>
+                            <option>Ativo</option>
+                            <option>Inativo</option>
+                            <option>Suspenso</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Ordenar por</label>
+                        <select class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all bg-white">
+                            <option>Mais recentes</option>
+                            <option>Nome (A-Z)</option>
+                            <option>Prazo (menor)</option>
+                            <option>Melhor classificação</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Resumo -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div class="bg-blue-50 rounded-xl p-4 border border-blue-200">
+                        <p class="text-blue-600 text-sm font-medium">Total de Fornecedores</p>
+                        <p id="totalSuppliers" class="text-2xl font-bold text-blue-800">0</p>
+                    </div>
+                    <div class="bg-green-50 rounded-xl p-4 border border-green-200">
+                        <p class="text-green-600 text-sm font-medium">Ativos</p>
+                        <p id="activeSuppliers" class="text-2xl font-bold text-green-800">0</p>
+                    </div>
+                    <div class="bg-red-50 rounded-xl p-4 border border-red-200">
+                        <p class="text-red-600 text-sm font-medium">Prazo Médio</p>
+                        <p id="averageLeadTime" class="text-2xl font-bold text-red-800">0 dias</p>
+                    </div>
+                    <div class="bg-yellow-50 rounded-xl p-4 border border-yellow-200">
+                        <p class="text-yellow-600 text-sm font-medium">Confiabilidade Média</p>
+                        <p id="averageScore" class="text-2xl font-bold text-yellow-800">0%</p>
+                    </div>
+                </div>
+
+                <!-- Tabela de Fornecedores -->
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="bg-gray-50 border-b-2 border-gray-200">
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Fornecedor</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">CNPJ</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Tipo</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Contato</th>
+                                <th class="px-6 py-4 text-center text-sm font-semibold text-gray-700">Prazo Entrega</th>
+                                <th class="px-6 py-4 text-center text-sm font-semibold text-gray-700">Pagamento</th>
+                                <th class="px-6 py-4 text-center text-sm font-semibold text-gray-700">Status</th>
+                                <th class="px-6 py-4 text-center text-sm font-semibold text-gray-700">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="suppliersTableBody" class="divide-y divide-gray-200">
+                            <!-- Rows will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Paginação -->
+                <div class="mt-8 flex items-center justify-between">
+                    <p class="text-sm text-gray-600">Exibindo 1 a 5 de 28 fornecedores</p>
+                    <div class="flex gap-2">
+                        <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-all font-medium">← Anterior</button>
+                        <button class="px-4 py-2 bg-green-600 text-white rounded-lg font-medium">1</button>
+                        <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-all font-medium">2</button>
+                        <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-all font-medium">Próxima →</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Dados globais
+        let allSuppliers = [];
+        let filteredSuppliers = [];
+        let currentPage = 1;
+        const suppliersPerPage = 5;
+
+        // Inicializar página
+        async function initPage() {
+            checkAuth();
+            await loadSuppliers();
+            setupEventListeners();
+        }
+
+        // Caregar fornecedores da API
+        async function loadSuppliers() {
+            try {
+                const suppliers = await getSuppliers();
+                if (Array.isArray(suppliers)) {
+                    allSuppliers = suppliers;
+                } else if (suppliers.data && Array.isArray(suppliers.data)) {
+                    allSuppliers = suppliers.data;
+                } else {
+                    allSuppliers = [];
+                }
+                
+                filteredSuppliers = [...allSuppliers];
+                updateDashboardCards();
+                renderSuppliersTable();
+            } catch (error) {
+                console.error('Erro ao carregar fornecedores:', error);
+                allSuppliers = [];
+            }
+        }
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            // Filtros
+            document.getElementById('searchInput').addEventListener('keyup', applyFilters);
+            document.getElementById('typeFilter').addEventListener('change', applyFilters);
+            document.getElementById('statusFilter').addEventListener('change', applyFilters);
+        }
+
+        // Aplicar filtros
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const typeFilter = document.getElementById('typeFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+
+            filteredSuppliers = allSuppliers.filter(supplier => {
+                // Filtro de busca
+                const matchesSearch = !searchTerm || 
+                    supplier.razao_social.toLowerCase().includes(searchTerm) ||
+                    supplier.cnpj.toLowerCase().includes(searchTerm) ||
+                    supplier.email.toLowerCase().includes(searchTerm);
+
+                // Filtro de categoria
+                const matchesType = !typeFilter || supplier.categoria_produtos === typeFilter;
+
+                // Filtro de status
+                const matchesStatus = !statusFilter || supplier.status === statusFilter;
+
+                return matchesSearch && matchesType && matchesStatus;
+            });
+
+            currentPage = 1;
+            renderSuppliersTable();
+        }
+
+        // Renderizar tabela de fornecedores
+        function renderSuppliersTable() {
+            const tbody = document.getElementById('suppliersTableBody');
+            tbody.innerHTML = '';
+
+            const startIndex = (currentPage - 1) * suppliersPerPage;
+            const endIndex = startIndex + suppliersPerPage;
+            const suppliersToShow = filteredSuppliers.slice(startIndex, endIndex);
+
+            if (suppliersToShow.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="px-6 py-4 text-center text-gray-500">Nenhum fornecedor encontrado</td></tr>';
+                return;
+            }
+
+            suppliersToShow.forEach(supplier => {
+                const row = createSupplierRow(supplier);
+                tbody.appendChild(row);
+            });
+        }
+
+        // Criar linha da tabela
+        function createSupplierRow(supplier) {
+            const tr = document.createElement('tr');
+            tr.className = 'hover:bg-gray-50 transition-all';
+            tr.id = `supplier-row-${supplier.id}`;
+
+            const categoryEmoji = getCategoryEmoji(supplier.categoria_produtos);
+            const categoryColor = getCategoryColor(supplier.categoria_produtos);
+            const statusBadge = getStatusBadge(supplier.status);
+
+            tr.innerHTML = `
+                <td class="px-6 py-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-${categoryColor}-100 rounded-lg flex items-center justify-center text-lg">${categoryEmoji}</div>
+                        <div>
+                            <p class="font-semibold text-gray-800">${supplier.razao_social}</p>
+                            <p class="text-xs text-gray-500">${supplier.cidade}, ${supplier.estado}</p>
+                        </div>
+                    </div>
+                </td>
+                <td class="px-6 py-4 text-sm text-gray-600">${supplier.cnpj}</td>
+                <td class="px-6 py-4 text-sm"><span class="bg-${categoryColor}-100 text-${categoryColor}-800 px-3 py-1 rounded-full text-xs font-medium">${supplier.categoria_produtos}</span></td>
+                <td class="px-6 py-4 text-sm">
+                    <p class="font-medium text-gray-800">${supplier.contato_principal}</p>
+                    <p class="text-xs text-gray-500">${supplier.telefone}</p>
+                </td>
+                <td class="px-6 py-4 text-center text-sm font-medium text-gray-800">${supplier.lead_time_medio} dias</td>
+                <td class="px-6 py-4 text-center text-sm text-gray-600">${supplier.forma_pagamento}</td>
+                <td class="px-6 py-4 text-center">${statusBadge}</td>
+                <td class="px-6 py-4 text-center">
+                    <div class="flex justify-center gap-2">
+                        <button class="text-blue-600 hover:text-blue-800 font-medium text-sm edit-btn" data-id="${supplier.id}">📝 Editar</button>
+                        <button class="text-red-600 hover:text-red-800 font-medium text-sm delete-btn" data-id="${supplier.id}">🗑️ Deletar</button>
+                    </div>
+                </td>
+            `;
+
+            // Adicionar event listeners
+            tr.querySelector('.edit-btn').addEventListener('click', () => {
+                window.location.href = `4-cadastro-fornecedores.html?id=${supplier.id}`;
+            });
+
+            tr.querySelector('.delete-btn').addEventListener('click', () => {
+                if (confirm(`Deseja deletar o fornecedor "${supplier.razao_social}"?`)) {
+                    deleteSupplierItem(supplier.id);
+                }
+            });
+
+            return tr;
+        }
+
+        // Deletar fornecedor
+        async function deleteSupplierItem(supplierId) {
+            try {
+                await deleteSupplier(supplierId);
+                allSuppliers = allSuppliers.filter(s => s.id !== supplierId);
+                filteredSuppliers = filteredSuppliers.filter(s => s.id !== supplierId);
+                
+                // Remover linha da tabela
+                const row = document.getElementById(`supplier-row-${supplierId}`);
+                if (row) {
+                    row.remove();
+                }
+                
+                updateDashboardCards();
+                renderSuppliersTable();
+                alert('Fornecedor deletado com sucesso!');
+            } catch (error) {
+                console.error('Erro ao deletar fornecedor:', error);
+                alert('Erro ao deletar fornecedor');
+            }
+        }
+
+        // Obter emoji da categoria
+        function getCategoryEmoji(category) {
+            const emojiMap = {
+                'Hortifruti': '🥬',
+                'Laticínios': '🧈',
+                'Carnes': '🥩',
+                'Bebidas': '🍹',
+                'Congelados': '❄️'
+            };
+            return emojiMap[category] || '📦';
+        }
+
+        // Obter cor da categoria
+        function getCategoryColor(category) {
+            const colorMap = {
+                'Hortifruti': 'green',
+                'Laticínios': 'blue',
+                'Carnes': 'red',
+                'Bebidas': 'orange',
+                'Congelados': 'purple'
+            };
+            return colorMap[category] || 'gray';
+        }
+
+        // Obter badge de status
+        function getStatusBadge(status) {
+            if (status === 'Ativo') {
+                return '<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-bold">Ativo</span>';
+            } else if (status === 'Inativo') {
+                return '<span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-bold">Inativo</span>';
+            } else if (status === 'Suspenso') {
+                return '<span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-bold">Suspenso</span>';
+            }
+            return '<span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs font-bold">⏳ Resposta</span>';
+        }
+
+        // Atualizar cards de resumo
+        function updateDashboardCards() {
+            const total = allSuppliers.length;
+            const active = allSuppliers.filter(s => s.status === 'Ativo').length;
+            const avgLeadTime = total > 0 ? Math.round(allSuppliers.reduce((sum, s) => sum + (s.lead_time_medio || 0), 0) / total) : 0;
+            const avgScore = total > 0 ? Math.round(allSuppliers.reduce((sum, s) => sum + (s.confiabilidade_score || 0), 0) / total) : 0;
+
+            document.getElementById('totalSuppliers').textContent = total.toLocaleString('pt-BR');
+            document.getElementById('activeSuppliers').textContent = active.toLocaleString('pt-BR');
+            document.getElementById('averageLeadTime').textContent = avgLeadTime + ' dias';
+            document.getElementById('averageScore').textContent = avgScore + '%';
+        }
+
+        // Logout
+        function doLogout() {
+            logout();
+            window.location.href = '/1-login.html';
+        }
+    </script>
+</body>
+</html>

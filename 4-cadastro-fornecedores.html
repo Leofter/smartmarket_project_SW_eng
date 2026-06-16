@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Market - Cadastro de Fornecedores</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="app-helper.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans" onload="initPage()">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-72 bg-gradient-to-b from-green-950 to-green-800 text-white p-6 flex flex-col justify-between overflow-y-auto">
+            <div>
+                <div class="flex items-center gap-3 mb-10">
+                    <div class="w-10 h-10 rounded-xl bg-green-500 flex items-center justify-center font-bold text-xl">
+                        S
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold">Smart Market</h1>
+                        <p class="text-sm text-green-200">Gestão Inteligente</p>
+                    </div>
+                </div>
+
+                <nav class="space-y-3">
+                    <a href="2-dashboard.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📊 Dashboard
+                    </a>
+                    <a href="10-previsao-demanda.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📈 Previsão de Demanda
+                    </a>
+                    <a href="9-estoque.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📦 Estoque
+                    </a>
+                    <a href="6-base-dados-fornecedores.html" class="w-full text-left px-4 py-3 rounded-xl transition-all bg-green-500 text-white shadow-lg font-medium block">
+                        🚚 Fornecedores
+                    </a>
+                    <a href="5-base-dados-produtos.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🏷️ Produtos
+                    </a>
+                    <a href="11-compra.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🛒 Compras
+                    </a>
+                    <a href="7-alertas-validade.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🔔 Alertas
+                    </a>
+                    <a href="8-sustentabilidade.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🌱 Sustentabilidade
+                    </a>
+                    <a href="12-relatorio.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📋 Relatórios
+                    </a>
+                    <a href="#" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        ⚙️ Configurações
+                    </a>
+                </nav>
+            </div>
+
+            <button onclick="doLogout()" class="w-full bg-white/10 hover:bg-white/20 transition-all py-3 rounded-xl font-medium">
+                👤 Sair
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto p-10">
+            <div class="bg-white rounded-3xl shadow-xl p-10">
+                <!-- Header -->
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <p class="text-sm text-gray-500 mb-2">Fornecedores > Cadastrar Fornecedor</p>
+                        <h1 class="text-4xl font-bold text-gray-800">Cadastrar Fornecedor</h1>
+                        <p class="text-gray-500 mt-2">Preencha as informações do fornecedor. Campos com * são obrigatórios.</p>
+                    </div>
+                    <button onclick="goBack()" class="border border-gray-300 px-6 py-3 rounded-xl hover:bg-gray-100 transition-all font-medium">
+                        ← Voltar
+                    </button>
+                </div>
+
+                <form id="supplierForm" class="space-y-8">
+                    <!-- Dados Gerais -->
+                    <section class="border rounded-2xl p-6">
+                        <h2 class="text-2xl font-semibold mb-6 text-green-700">Dados Gerais</h2>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Nome do Fornecedor *</label>
+                                <input id="razao_social" type="text" placeholder="Ex: Hortifruti Bom Preço" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">CNPJ *</label>
+                                <input id="cnpj" type="text" placeholder="00.000.000/0000-00" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Inscrição Estadual</label>
+                                <input type="text" placeholder="123.456.789" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de Fornecedor *</label>
+                                <select id="categoria_produtos" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all bg-white">
+                                    <option>Selecione</option>
+                                    <option>Hortifruti</option>
+                                    <option>Laticínios</option>
+                                    <option>Carnes</option>
+                                    <option>Bebidas</option>
+                                    <option>Congelados</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">E-mail *</label>
+                                <input id="email" type="email" placeholder="contato@fornecedor.com" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Telefone *</label>
+                                <input id="telefone" type="tel" placeholder="(00) 00000-0000" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Celular</label>
+                                <input id="celular" type="tel" placeholder="(00) 00000-0000" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Website</label>
+                                <input type="url" placeholder="www.fornecedor.com.br" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Endereço -->
+                    <section class="border rounded-2xl p-6">
+                        <h2 class="text-2xl font-semibold mb-6 text-green-700">Endereço</h2>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">CEP *</label>
+                                <input id="cep" type="text" placeholder="00000-000" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Endereço *</label>
+                                <input id="rua" type="text" placeholder="Rua, Avenida, etc." class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Número *</label>
+                                <input id="numero" type="text" placeholder="123" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Complemento</label>
+                                <input id="complemento" type="text" placeholder="Sala, bloco, etc." class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Bairro *</label>
+                                <input type="text" placeholder="Nome do bairro" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Cidade *</label>
+                                <input id="cidade" type="text" placeholder="Salvador" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Estado *</label>
+                                <select id="estado" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all bg-white">
+                                    <option>Selecione</option>
+                                    <option>BA</option>
+                                    <option>SP</option>
+                                    <option>RJ</option>
+                                    <option>MG</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Informações Comerciais -->
+                    <section class="border rounded-2xl p-6">
+                        <h2 class="text-2xl font-semibold mb-6 text-green-700">Informações Comerciais</h2>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Pessoa de Contato *</label>
+                                <input id="contato_principal" type="text" placeholder="Nome do responsável" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Cargo</label>
+                                <input type="text" placeholder="Gerente comercial" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Condições de Pagamento *</label>
+                                <select id="forma_pagamento" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all bg-white">
+                                    <option>Selecione</option>
+                                    <option>À Vista</option>
+                                    <option>15 dias</option>
+                                    <option>30 dias</option>
+                                    <option>45 dias</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Prazo de Entrega (dias) *</label>
+                                <input id="lead_time_medio" type="number" placeholder="3" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Desconto Padrão (%)</label>
+                                <input id="desconto_padrao" type="number" placeholder="5" step="0.01" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Score de Confiabilidade (0-100)</label>
+                                <input id="confiabilidade_score" type="number" placeholder="85" min="0" max="100" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Dicas e Botões -->
+                    <div class="bg-green-50 border border-green-200 rounded-2xl p-6 flex flex-col md:flex-row gap-4 items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-green-800 text-lg">Dicas de Usabilidade</h3>
+                            <p class="text-green-700 mt-1">Todos os campos obrigatórios possuem marcação com * para evitar erros de preenchimento.</p>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <button type="reset" class="px-6 py-3 rounded-xl border border-gray-300 hover:bg-gray-100 transition-all font-medium">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="px-6 py-3 rounded-xl bg-green-600 hover:bg-green-700 text-white font-semibold shadow-lg transition-all">
+                                Salvar Fornecedor
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Inicialização
+        async function initPage() {
+            checkAuth();
+            document.getElementById('supplierForm').addEventListener('submit', handleSubmit);
+        }
+
+        // Voltar
+        function goBack() {
+            window.location.href = '/6-base-dados-fornecedores.html';
+        }
+
+        // Logout
+        function doLogout() {
+            logout();
+            window.location.href = '/1-login.html';
+        }
+
+        // Submissão do formulário
+        async function handleSubmit(e) {
+            e.preventDefault();
+
+            const supplierData = {
+                razao_social: document.getElementById('razao_social').value,
+                cnpj: document.getElementById('cnpj').value,
+                email: document.getElementById('email').value,
+                telefone: document.getElementById('telefone').value,
+                celular: document.getElementById('celular').value,
+                contato_principal: document.getElementById('contato_principal').value,
+                rua: document.getElementById('rua').value,
+                numero: document.getElementById('numero').value,
+                complemento: document.getElementById('complemento').value,
+                cidade: document.getElementById('cidade').value,
+                estado: document.getElementById('estado').value,
+                cep: document.getElementById('cep').value,
+                categoria_produtos: document.getElementById('categoria_produtos').value,
+                lead_time_medio: parseInt(document.getElementById('lead_time_medio').value) || 0,
+                prazo_pagamento: document.getElementById('forma_pagamento').value,
+                forma_pagamento: document.getElementById('forma_pagamento').value,
+                desconto_padrao: parseFloat(document.getElementById('desconto_padrao').value) || 0,
+                confiabilidade_score: parseInt(document.getElementById('confiabilidade_score').value) || 0,
+                status: 'Ativo'
+            };
+
+            try {
+                const result = await createSupplier(supplierData);
+                alert('Fornecedor cadastrado com sucesso!');
+                document.getElementById('supplierForm').reset();
+                
+                setTimeout(() => {
+                    window.location.href = '/6-base-dados-fornecedores.html';
+                }, 1500);
+            } catch (error) {
+                alert('Erro ao salvar fornecedor: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Market - Dashboard de Sustentabilidade</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-72 bg-gradient-to-b from-green-950 to-green-800 text-white p-6 flex flex-col justify-between overflow-y-auto">
+            <div>
+                <div class="flex items-center gap-3 mb-10">
+                    <div class="w-10 h-10 rounded-xl bg-green-500 flex items-center justify-center font-bold text-xl">
+                        S
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold">Smart Market</h1>
+                        <p class="text-sm text-green-200">Gestão Inteligente</p>
+                    </div>
+                </div>
+
+                <nav class="space-y-3">
+                    <a href="2-dashboard.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📊 Dashboard
+                    </a>
+                    <a href="10-previsao-demanda.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📈 Previsão de Demanda
+                    </a>
+                    <a href="9-estoque.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📦 Estoque
+                    </a>
+                    <a href="6-base-dados-fornecedores.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🚚 Fornecedores
+                    </a>
+                    <a href="5-base-dados-produtos.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🏷️ Produtos
+                    </a>
+                    <a href="11-compra.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🛒 Compras
+                    </a>
+                    <a href="7-alertas-validade.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🔔 Alertas
+                    </a>
+                    <a href="8-sustentabilidade.html" class="w-full text-left px-4 py-3 rounded-xl transition-all bg-green-500 text-white shadow-lg font-medium block">
+                        🌱 Sustentabilidade
+                    </a>
+                    <a href="12-relatorio.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📋 Relatórios
+                    </a>
+                    <a href="#" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        ⚙️ Configurações
+                    </a>
+                </nav>
+            </div>
+
+            <button class="w-full bg-white/10 hover:bg-white/20 transition-all py-3 rounded-xl font-medium">
+                👤 Sair
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto p-10">
+            <div class="bg-white rounded-3xl shadow-xl p-10">
+                <!-- Header -->
+                <div class="mb-8">
+                    <p class="text-sm text-gray-500 mb-2">Sustentabilidade > ESG Metrics</p>
+                    <h1 class="text-4xl font-bold text-gray-800">Dashboard de Sustentabilidade</h1>
+                    <p class="text-gray-500 mt-2">Acompanhe o impacto ambiental e as métricas de sustentabilidade do seu negócio.</p>
+                </div>
+
+                <!-- Período Seletor -->
+                <div class="flex gap-3 mb-8">
+                    <button class="px-4 py-2 bg-green-600 text-white rounded-lg font-medium">Este Mês</button>
+                    <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 font-medium">Últimos 3 Meses</button>
+                    <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 font-medium">Este Ano</button>
+                    <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 font-medium">Desde o Início</button>
+                </div>
+
+                <!-- KPI Cards - Principais Métricas -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <!-- Alimentos Salvos -->
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl shadow-lg p-6 border-l-4 border-green-600">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <p class="text-green-700 text-sm font-medium">Alimentos Salvos</p>
+                                <h3 class="text-4xl font-bold text-green-800 mt-2">2.156</h3>
+                                <p class="text-green-600 text-sm mt-2">kg este mês</p>
+                            </div>
+                            <div class="w-16 h-16 bg-white rounded-xl flex items-center justify-center text-3xl shadow-lg">
+                                🌱
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-green-200">
+                            <p class="text-xs text-green-700">↑ 23% vs mês anterior</p>
+                        </div>
+                    </div>
+
+                    <!-- CO₂ Evitado -->
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-lg p-6 border-l-4 border-blue-600">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <p class="text-blue-700 text-sm font-medium">CO₂ Evitado</p>
+                                <h3 class="text-4xl font-bold text-blue-800 mt-2">892</h3>
+                                <p class="text-blue-600 text-sm mt-2">kg CO₂ eq.</p>
+                            </div>
+                            <div class="w-16 h-16 bg-white rounded-xl flex items-center justify-center text-3xl shadow-lg">
+                                ☁️
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-blue-200">
+                            <p class="text-xs text-blue-700">Equivalente a 4 árvores plantadas</p>
+                        </div>
+                    </div>
+
+                    <!-- Água Conservada -->
+                    <div class="bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-2xl shadow-lg p-6 border-l-4 border-cyan-600">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <p class="text-cyan-700 text-sm font-medium">Água Conservada</p>
+                                <h3 class="text-4xl font-bold text-cyan-800 mt-2">43.234</h3>
+                                <p class="text-cyan-600 text-sm mt-2">litros</p>
+                            </div>
+                            <div class="w-16 h-16 bg-white rounded-xl flex items-center justify-center text-3xl shadow-lg">
+                                💧
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-cyan-200">
+                            <p class="text-xs text-cyan-700">Economia de 173 piscinas</p>
+                        </div>
+                    </div>
+
+                    <!-- Economia Financeira -->
+                    <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl shadow-lg p-6 border-l-4 border-yellow-600">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <p class="text-yellow-700 text-sm font-medium">Economia Financeira</p>
+                                <h3 class="text-4xl font-bold text-yellow-800 mt-2">R$ 8.624</h3>
+                                <p class="text-yellow-600 text-sm mt-2">economizado</p>
+                            </div>
+                            <div class="w-16 h-16 bg-white rounded-xl flex items-center justify-center text-3xl shadow-lg">
+                                💰
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-yellow-200">
+                            <p class="text-xs text-yellow-700">↑ 18% em margem de lucro</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráficos -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <!-- Gráfico de Alimentos Salvos -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-200">
+                        <h2 class="text-xl font-bold text-gray-800 mb-6">Alimentos Salvos (últimos 12 meses)</h2>
+                        <div class="relative h-80">
+                            <canvas id="foodSavedChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Gráfico de CO₂ Evitado -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-200">
+                        <h2 class="text-xl font-bold text-gray-800 mb-6">CO₂ Evitado (kg CO₂ eq.)</h2>
+                        <div class="relative h-80">
+                            <canvas id="co2Chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Impacto Comparativo -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <!-- Breakdown de Impacto -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-200">
+                        <h2 class="text-xl font-bold text-gray-800 mb-6">Composição do Impacto Ambiental</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="font-semibold text-gray-700">Emissões evitadas (aterro)</p>
+                                    <p class="font-bold text-gray-800">45%</p>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div class="bg-red-500 h-3 rounded-full" style="width: 45%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="font-semibold text-gray-700">Redução de transporte</p>
+                                    <p class="font-bold text-gray-800">28%</p>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div class="bg-orange-500 h-3 rounded-full" style="width: 28%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="font-semibold text-gray-700">Redução de energia (refrigeração)</p>
+                                    <p class="font-bold text-gray-800">18%</p>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div class="bg-yellow-500 h-3 rounded-full" style="width: 18%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="font-semibold text-gray-700">Economia de água (produção)</p>
+                                    <p class="font-bold text-gray-800">9%</p>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div class="bg-blue-500 h-3 rounded-full" style="width: 9%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Equivalências Comparativas -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-200">
+                        <h2 class="text-xl font-bold text-gray-800 mb-6">O que isso representa?</h2>
+                        <div class="space-y-4">
+                            <div class="bg-green-50 border border-green-200 rounded-xl p-4">
+                                <p class="text-lg font-bold text-green-800">🌳 Equivalente a</p>
+                                <p class="text-2xl font-bold text-green-700 mt-2">148 árvores plantadas</p>
+                                <p class="text-sm text-green-600 mt-1">para compensar o CO₂ evitado</p>
+                            </div>
+                            <div class="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                                <p class="text-lg font-bold text-blue-800">🚗 Equivalente a</p>
+                                <p class="text-2xl font-bold text-blue-700 mt-2">1.890 km percorridos</p>
+                                <p class="text-sm text-blue-600 mt-1">por um carro a gasolina</p>
+                            </div>
+                            <div class="bg-cyan-50 border border-cyan-200 rounded-xl p-4">
+                                <p class="text-lg font-bold text-cyan-800">💧 Equivalente a</p>
+                                <p class="text-2xl font-bold text-cyan-700 mt-2">86 banhos tomados</p>
+                                <p class="text-sm text-cyan-600 mt-1">de água economizada</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ODS Alignment -->
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl border border-green-200 p-8 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Alinhamento com ODS (Objetivos de Desenvolvimento Sustentável)</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white rounded-xl p-4 border border-gray-200">
+                            <p class="text-3xl mb-2">🥗</p>
+                            <h3 class="font-bold text-gray-800">ODS 2 - Fome Zero</h3>
+                            <p class="text-sm text-gray-600 mt-2">Redução de desperdício alimentar contribui para melhor distribuição de alimentos.</p>
+                        </div>
+                        <div class="bg-white rounded-xl p-4 border border-gray-200">
+                            <p class="text-3xl mb-2">🌍</p>
+                            <h3 class="font-bold text-gray-800">ODS 12 - Consumo Responsável</h3>
+                            <p class="text-sm text-gray-600 mt-2">Smart Market promove consumo e produção mais sustentáveis.</p>
+                        </div>
+                        <div class="bg-white rounded-xl p-4 border border-gray-200">
+                            <p class="text-3xl mb-2">🌡️</p>
+                            <h3 class="font-bold text-gray-800">ODS 13 - Ação Climática</h3>
+                            <p class="text-sm text-gray-600 mt-2">Redução de emissões de GEE contribui para combate às mudanças climáticas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Histórico Mensal -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-200">
+                    <h2 class="text-xl font-bold text-gray-800 mb-6">Histórico Mensal de Impacto</h2>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="bg-gray-50 border-b-2 border-gray-200">
+                                    <th class="px-4 py-3 text-left font-semibold text-gray-700">Mês</th>
+                                    <th class="px-4 py-3 text-center font-semibold text-gray-700">Alimentos Salvos (kg)</th>
+                                    <th class="px-4 py-3 text-center font-semibold text-gray-700">CO₂ Evitado (kg)</th>
+                                    <th class="px-4 py-3 text-center font-semibold text-gray-700">Água Conservada (L)</th>
+                                    <th class="px-4 py-3 text-center font-semibold text-gray-700">Economia Financeira</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-semibold text-gray-800">Janeiro 2024</td>
+                                    <td class="px-4 py-3 text-center text-gray-600">2.156</td>
+                                    <td class="px-4 py-3 text-center text-gray-600">892</td>
+                                    <td class="px-4 py-3 text-center text-gray-600">43.234</td>
+                                    <td class="px-4 py-3 text-center font-bold text-green-600">R$ 8.624</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-semibold text-gray-800">Dezembro 2023</td>
+                                    <td class="px-4 py-3 text-center text-gray-600">1.754</td>
+                                    <td class="px-4 py-3 text-center text-gray-600">726</td>
+                                    <td class="px-4 py-3 text-center text-gray-600">35.123</td>
+                                    <td class="px-4 py-3 text-center font-bold text-green-600">R$ 7.012</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-semibold text-gray-800">Novembro 2023</td>
+                                    <td class="px-4 py-3 text-center text-gray-600">1.923</td>
+                                    <td class="px-4 py-3 text-center text-gray-600">798</td>
+                                    <td class="px-4 py-3 text-center text-gray-600">38.456</td>
+                                    <td class="px-4 py-3 text-center font-bold text-green-600">R$ 7.692</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-semibold text-gray-800">Outubro 2023</td>
+                                    <td class="px-4 py-3 text-center text-gray-600">1.567</td>
+                                    <td class="px-4 py-3 text-center text-gray-600">648</td>
+                                    <td class="px-4 py-3 text-center text-gray-600">31.289</td>
+                                    <td class="px-4 py-3 text-center font-bold text-green-600">R$ 6.268</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Gráfico de Alimentos Salvos
+        const foodCtx = document.getElementById('foodSavedChart').getContext('2d');
+        new Chart(foodCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                datasets: [{
+                    label: 'Kg de Alimentos Salvos',
+                    data: [1500, 1650, 1800, 1920, 2100, 2050, 2200, 2150, 1900, 1567, 1923, 2156],
+                    backgroundColor: '#10b981',
+                    borderColor: '#059669',
+                    borderWidth: 2,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { font: { size: 12, weight: 'bold' } }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Gráfico de CO₂ Evitado
+        const co2Ctx = document.getElementById('co2Chart').getContext('2d');
+        new Chart(co2Ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                datasets: [{
+                    label: 'kg CO₂ Equivalente',
+                    data: [620, 683, 745, 794, 868, 847, 909, 888, 785, 648, 798, 892],
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    pointBackgroundColor: '#3b82f6',
+                    pointRadius: 5,
+                    pointHoverRadius: 7
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { font: { size: 12, weight: 'bold' } }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

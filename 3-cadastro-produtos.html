@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Market - Cadastro de Produtos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="app-helper.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans" onload="initPage()">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-72 bg-gradient-to-b from-green-950 to-green-800 text-white p-6 flex flex-col justify-between overflow-y-auto">
+            <div>
+                <div class="flex items-center gap-3 mb-10">
+                    <div class="w-10 h-10 rounded-xl bg-green-500 flex items-center justify-center font-bold text-xl">
+                        S
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold">Smart Market</h1>
+                        <p class="text-sm text-green-200">Gestão Inteligente</p>
+                    </div>
+                </div>
+
+                <nav class="space-y-3">
+                    <a href="2-dashboard.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📊 Dashboard
+                    </a>
+                    <a href="10-previsao-demanda.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📈 Previsão de Demanda
+                    </a>
+                    <a href="9-estoque.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📦 Estoque
+                    </a>
+                    <a href="6-base-dados-fornecedores.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🚚 Fornecedores
+                    </a>
+                    <a href="5-base-dados-produtos.html" class="w-full text-left px-4 py-3 rounded-xl transition-all bg-green-500 text-white shadow-lg font-medium block">
+                        🏷️ Produtos
+                    </a>
+                    <a href="11-compra.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🛒 Compras
+                    </a>
+                    <a href="7-alertas-validade.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🔔 Alertas
+                    </a>
+                    <a href="8-sustentabilidade.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🌱 Sustentabilidade
+                    </a>
+                    <a href="12-relatorio.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📋 Relatórios
+                    </a>
+                    <a href="#" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        ⚙️ Configurações
+                    </a>
+                </nav>
+            </div>
+
+            <button onclick="doLogout()" class="w-full bg-white/10 hover:bg-white/20 transition-all py-3 rounded-xl font-medium">
+                👤 Sair
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto p-10">
+            <div class="bg-white rounded-3xl shadow-xl p-10">
+                <!-- Header -->
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <p class="text-sm text-gray-500 mb-2">Produtos > Cadastrar Produto</p>
+                        <h1 class="text-4xl font-bold text-gray-800">Cadastrar Produto</h1>
+                        <p class="text-gray-500 mt-2">Preencha as informações do produto. Campos com * são obrigatórios.</p>
+                    </div>
+                    <button onclick="goBack()" class="border border-gray-300 px-6 py-3 rounded-xl hover:bg-gray-100 transition-all font-medium">
+                        ← Voltar
+                    </button>
+                </div>
+
+                <form id="productForm" class="space-y-8">
+                    <!-- Informações Básicas -->
+                    <section class="border rounded-2xl p-6">
+                        <h2 class="text-2xl font-semibold mb-6 text-green-700">Informações Básicas</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Nome do Produto *</label>
+                                <input id="nome" type="text" placeholder="Ex: Maçã Vermelha Premium" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all" required/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Código de Barras *</label>
+                                <input id="barcode" type="text" placeholder="123456789012" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all" required/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">SKU *</label>
+                                <input id="sku" type="text" placeholder="MAÇ-VRM-01" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all" required/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Categoria *</label>
+                                <select id="categoria" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all bg-white" required>
+                                    <option value="">Selecione</option>
+                                    <option value="Bebidas">Bebidas</option>
+                                    <option value="Laticínios">Laticínios</option>
+                                    <option value="Congelados">Congelados</option>
+                                    <option value="Carnes">Carnes</option>
+                                    <option value="Hortifrúti">Hortifrúti</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Unidade de Medida *</label>
+                                <select id="unidade" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all bg-white" required>
+                                    <option value="">Selecione</option>
+                                    <option value="Unidade">Unidade</option>
+                                    <option value="Kg">Kg</option>
+                                    <option value="Litro">Litro</option>
+                                    <option value="Caixa">Caixa</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Fornecedor</label>
+                                <select id="fornecedor" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all bg-white">
+                                    <option value="">Selecione</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Descrição</label>
+                                <input id="descricao" type="text" placeholder="Detalhes adicionais" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Preços e Estoque -->
+                    <section class="border rounded-2xl p-6">
+                        <h2 class="text-2xl font-semibold mb-6 text-green-700">Preços e Estoque</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Preço de Custo *</label>
+                                <div class="flex items-center">
+                                    <span class="text-gray-600 font-medium mr-2">R$</span>
+                                    <input id="preco_custo" type="number" placeholder="0.00" step="0.01" class="flex-1 border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all" required/>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Preço de Venda *</label>
+                                <div class="flex items-center">
+                                    <span class="text-gray-600 font-medium mr-2">R$</span>
+                                    <input id="preco_venda" type="number" placeholder="0.00" step="0.01" class="flex-1 border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all" required/>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Estoque Inicial *</label>
+                                <input id="estoque_atual" type="number" placeholder="0" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all" required/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Estoque Mínimo *</label>
+                                <input id="estoque_minimo" type="number" placeholder="10" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all" required/>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Validade e Rastreabilidade -->
+                    <section class="border rounded-2xl p-6">
+                        <h2 class="text-2xl font-semibold mb-6 text-green-700">Validade e Rastreabilidade</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Shelf-life (dias) *</label>
+                                <input id="validade_media" type="number" placeholder="7" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all" required/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Data de Fabricação *</label>
+                                <input type="date" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Data de Vencimento *</label>
+                                <input type="date" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Lote/Série</label>
+                                <input type="text" placeholder="LT202401001" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Requer Refrigeração? *</label>
+                                <select class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all bg-white">
+                                    <option>Selecione</option>
+                                    <option>Sim - Congelado (-18°C a -22°C)</option>
+                                    <option>Sim - Refrigerado (2°C a 8°C)</option>
+                                    <option>Não - Temperatura Ambiente</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Sazonalidade</label>
+                                <select class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all bg-white">
+                                    <option>Selecione</option>
+                                    <option>Sazonal - Verão</option>
+                                    <option>Sazonal - Inverno</option>
+                                    <option>Perene</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Atributos Adicionais -->
+                    <section class="border rounded-2xl p-6">
+                        <h2 class="text-2xl font-semibold mb-6 text-green-700">Atributos Adicionais</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Peso/Volume (Kg ou L)</label>
+                                <input id="peso_volume" type="text" placeholder="0.5" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Marca</label>
+                                <input id="marca" type="text" placeholder="Ex: Sadia, Nestlé" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Observações</label>
+                                <textarea id="certificacoes" placeholder="Informações adicionais" class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all min-h-[100px]"></textarea>
+                            </div>
+                            <div class="flex flex-col justify-end gap-3">
+                                <label class="flex items-center gap-2 text-gray-700 cursor-pointer">
+                                    <input id="ativo" type="checkbox" class="w-5 h-5 rounded border-gray-300" checked/>
+                                    <span>Produto ativo</span>
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Mensagem de sucesso/erro -->
+                    <div id="successMessage" class="hidden bg-green-50 border border-green-200 rounded-2xl p-6">
+                        <p class="text-green-800 font-semibold">✓ Produto cadastrado com sucesso!</p>
+                    </div>
+                    <div id="errorMessage" class="hidden bg-red-50 border border-red-200 rounded-2xl p-6">
+                        <p id="errorText" class="text-red-800 font-semibold"></p>
+                    </div>
+
+                    <!-- Botões de Ação -->
+                    <div class="bg-green-50 border border-green-200 rounded-2xl p-6 flex flex-col md:flex-row gap-4 items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-green-800 text-lg">Dica de Preenchimento</h3>
+                            <p class="text-green-700 mt-1">Todos os campos com * são obrigatórios. Verifique a data de vencimento com atenção.</p>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <button type="reset" class="px-6 py-3 rounded-xl border border-gray-300 hover:bg-gray-100 transition-all font-medium">
+                                Limpar
+                            </button>
+                            <button type="submit" class="px-6 py-3 rounded-xl bg-green-600 hover:bg-green-700 text-white font-semibold shadow-lg transition-all">
+                                Salvar Produto
+                            </button>
+                        </div>
+                    </div>
+                 </form>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Inicialização
+        async function initPage() {
+            checkAuth();
+            await loadSuppliers();
+            document.getElementById('productForm').addEventListener('submit', handleSubmit);
+        }
+
+        // Carregar fornecedores
+        async function loadSuppliers() {
+            const suppliers = await getSuppliers();
+            const select = document.getElementById('fornecedor');
+            suppliers.forEach(supplier => {
+                const option = document.createElement('option');
+                option.value = supplier.id;
+                option.textContent = supplier.razao_social;
+                select.appendChild(option);
+            });
+        }
+
+        // Voltar
+        function goBack() {
+            window.location.href = '/5-base-dados-produtos.html';
+        }
+
+        // Logout
+        function doLogout() {
+            logout();
+            window.location.href = '/1-login.html';
+        }
+
+        // Submissão do formulário
+        async function handleSubmit(e) {
+            e.preventDefault();
+
+            const productData = {
+                nome: document.getElementById('nome').value,
+                sku: document.getElementById('sku').value,
+                barcode: document.getElementById('barcode').value,
+                categoria: document.getElementById('categoria').value,
+                estoque_atual: parseInt(document.getElementById('estoque_atual').value),
+                estoque_minimo: parseInt(document.getElementById('estoque_minimo').value),
+                unidade: document.getElementById('unidade').value,
+                preco_custo: parseFloat(document.getElementById('preco_custo').value),
+                preco_venda: parseFloat(document.getElementById('preco_venda').value),
+                margem_lucro: Math.round(((parseFloat(document.getElementById('preco_venda').value) - parseFloat(document.getElementById('preco_custo').value)) / parseFloat(document.getElementById('preco_custo').value)) * 100),
+                marca: document.getElementById('marca').value,
+                peso_volume: document.getElementById('peso_volume').value,
+                descricao: document.getElementById('descricao').value,
+                validade_media: parseInt(document.getElementById('validade_media').value),
+                certificacoes: document.getElementById('certificacoes').value,
+                status: document.getElementById('ativo').checked ? 'Ativo' : 'Inativo'
+            };
+
+            try {
+                const result = await createProduct(productData);
+                document.getElementById('successMessage').classList.remove('hidden');
+                document.getElementById('errorMessage').classList.add('hidden');
+                document.getElementById('productForm').reset();
+                
+                setTimeout(() => {
+                    window.location.href = '/5-base-dados-produtos.html';
+                }, 2000);
+            } catch (error) {
+                document.getElementById('errorMessage').classList.remove('hidden');
+                document.getElementById('successMessage').classList.add('hidden');
+                document.getElementById('errorText').textContent = 'Erro ao salvar produto: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>

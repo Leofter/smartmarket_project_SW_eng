@@ -1,0 +1,41 @@
+[
+  {
+    "id": "ea01adba-e140-4b7e-9a21-cf3876e46a1a",
+    "email": "leo@gmail.com",
+    "token": "0de428a3-6447-4070-9c70-30d22d666ae3",
+    "login_timestamp": "2026-05-19T13:06:50.700Z"
+  },
+  {
+    "id": "92340148-5614-48ab-b952-2df2f83eae92",
+    "email": "leofter@gmail.com",
+    "token": "cc9662e4-ba45-4fb7-8f03-96425bb4caa0",
+    "login_timestamp": "2026-05-19T13:08:11.571Z"
+<<<<<<< Updated upstream
+=======
+  },
+  {
+    "id": "9c0d5ad2-8777-4fb3-b30c-bc1e1f6beb52",
+    "email": "leofter@gmail.com",
+    "token": "e4f14918-35bb-4b77-b835-f6378a8e20be",
+    "login_timestamp": "2026-05-19T13:23:33.226Z"
+  },
+  {
+    "id": "b3ed3524-bd4b-47d3-a72a-478f51276c31",
+    "email": "cimatec@gmail.com",
+    "token": "ed570de6-432d-4bc2-8908-e74ca8f20b73",
+    "login_timestamp": "2026-06-08T22:18:46.752Z"
+  },
+  {
+    "id": "9e2d3e3a-8da6-413e-abd3-2e4faf83c318",
+    "email": "cimatec@gmail.com",
+    "token": "1ca7bab5-e01c-4e4a-99c9-bd54981966c3",
+    "login_timestamp": "2026-06-08T22:22:13.314Z"
+  },
+  {
+    "id": "86e2ca42-d3fc-43b6-b148-1229c7fedf58",
+    "email": "cimatec@gmail.com",
+    "token": "d2b43fa8-09b0-4d2b-8ba8-b56f831e41a3",
+    "login_timestamp": "2026-06-09T13:20:18.852Z"
+>>>>>>> Stashed changes
+  }
+]

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Market - Alertas de Validade</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-72 bg-gradient-to-b from-green-950 to-green-800 text-white p-6 flex flex-col justify-between overflow-y-auto">
+            <div>
+                <div class="flex items-center gap-3 mb-10">
+                    <div class="w-10 h-10 rounded-xl bg-green-500 flex items-center justify-center font-bold text-xl">
+                        S
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold">Smart Market</h1>
+                        <p class="text-sm text-green-200">Gestão Inteligente</p>
+                    </div>
+                </div>
+
+                <nav class="space-y-3">
+                    <a href="2-dashboard.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📊 Dashboard
+                    </a>
+                    <a href="10-previsao-demanda.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📈 Previsão de Demanda
+                    </a>
+                    <a href="9-estoque.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📦 Estoque
+                    </a>
+                    <a href="6-base-dados-fornecedores.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🚚 Fornecedores
+                    </a>
+                    <a href="5-base-dados-produtos.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🏷️ Produtos
+                    </a>
+                    <a href="11-compra.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🛒 Compras
+                    </a>
+                    <a href="7-alertas-validade.html" class="w-full text-left px-4 py-3 rounded-xl transition-all bg-green-500 text-white shadow-lg font-medium block">
+                        🔔 Alertas
+                    </a>
+                    <a href="8-sustentabilidade.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        🌱 Sustentabilidade
+                    </a>
+                    <a href="12-relatorio.html" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        📋 Relatórios
+                    </a>
+                    <a href="#" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-white/10 block">
+                        ⚙️ Configurações
+                    </a>
+                </nav>
+            </div>
+
+            <button class="w-full bg-white/10 hover:bg-white/20 transition-all py-3 rounded-xl font-medium">
+                👤 Sair
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto p-10">
+            <div class="bg-white rounded-3xl shadow-xl p-10">
+                <!-- Header -->
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <p class="text-sm text-gray-500 mb-2">Alertas > Validade de Produtos</p>
+                        <h1 class="text-4xl font-bold text-gray-800">Alertas de Validade</h1>
+                        <p class="text-gray-500 mt-2">Acompanhe produtos próximos ao vencimento e tome ações preventivas.</p>
+                    </div>
+                </div>
+
+                <!-- Filtros -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de Alerta</label>
+                        <select class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all bg-white">
+                            <option>Todos</option>
+                            <option>Vencimento Iminente</option>
+                            <option>Próximo a Vencer (7 dias)</option>
+                            <option>Próximo a Vencer (15 dias)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Prioridade</label>
+                        <select class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all bg-white">
+                            <option>Todas</option>
+                            <option>🔴 Crítica (0-2 dias)</option>
+                            <option>🟠 Alta (2-7 dias)</option>
+                            <option>🟡 Média (7-15 dias)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Categoria</label>
+                        <select class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all bg-white">
+                            <option>Todas</option>
+                            <option>Hortifrúti</option>
+                            <option>Laticínios</option>
+                            <option>Carnes</option>
+                            <option>Bebidas</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                        <select class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all bg-white">
+                            <option>Todos</option>
+                            <option>Não Resolvido</option>
+                            <option>Desconto Aplicado</option>
+                            <option>Descartado</option>
+                        </select>
+                    </div>
+                    <div class="flex items-end">
+                        <button class="w-full bg-green-600 hover:bg-green-700 text-white px-6 py-4 rounded-xl font-semibold shadow-lg transition-all">
+                            🔍 Filtrar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Resumo -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div class="bg-red-50 rounded-xl p-4 border-l-4 border-red-500">
+                        <p class="text-red-600 text-sm font-medium">Crítica (0-2 dias)</p>
+                        <p class="text-2xl font-bold text-red-800">12</p>
+                    </div>
+                    <div class="bg-orange-50 rounded-xl p-4 border-l-4 border-orange-500">
+                        <p class="text-orange-600 text-sm font-medium">Alta (2-7 dias)</p>
+                        <p class="text-2xl font-bold text-orange-800">28</p>
+                    </div>
+                    <div class="bg-yellow-50 rounded-xl p-4 border-l-4 border-yellow-500">
+                        <p class="text-yellow-600 text-sm font-medium">Média (7-15 dias)</p>
+                        <p class="text-2xl font-bold text-yellow-800">45</p>
+                    </div>
+                    <div class="bg-green-50 rounded-xl p-4 border-l-4 border-green-500">
+                        <p class="text-green-600 text-sm font-medium">Total de Alertas</p>
+                        <p class="text-2xl font-bold text-green-800">85</p>
+                    </div>
+                </div>
+
+                <!-- Alertas por Categoria -->
+                <div class="space-y-6">
+                    <!-- Crítica -->
+                    <section class="border rounded-2xl overflow-hidden">
+                        <div class="bg-red-50 border-l-4 border-red-500 px-6 py-4 flex items-center justify-between cursor-pointer hover:bg-red-100 transition-all" onclick="toggleSection(event, 'critica')">
+                            <div>
+                                <h2 class="text-xl font-bold text-red-800">🔴 CRÍTICA - Vence hoje/amanhã (0-2 dias)</h2>
+                                <p class="text-red-700 text-sm">12 produtos requerem ação imediata</p>
+                            </div>
+                            <span class="text-2xl text-red-600">▼</span>
+                        </div>
+                        <div id="critica" class="divide-y divide-gray-200">
+                            <div class="p-6 hover:bg-gray-50 transition-all">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center text-xl">🥛</div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-800">Leite Integral 1L - Lote LT202401012</h3>
+                                            <p class="text-sm text-gray-600 mt-1">Fabricação: 22/01/2024 | Vencimento: <span class="font-bold text-red-600">HOJE (23/01/2024)</span></p>
+                                            <p class="text-sm text-gray-600">Quantidade: <span class="font-bold">24 unidades</span> em estoque</p>
+                                            <p class="text-sm text-gray-600 mt-2">Fornecedor: Laticínios Fresh Bahia | Preço Unit: R$ 4,29</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-2xl font-bold text-red-600">⚠️ 0 dias</p>
+                                        <p class="text-xs text-gray-500 mt-2">Desperdício evitado: ~103 kg</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-3 mt-4">
+                                    <button class="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-sm font-medium transition-all">
+                                        🏷️ Aplicar Desconto 40%
+                                    </button>
+                                    <button class="px-4 py-2 border-2 border-orange-600 text-orange-600 hover:bg-orange-50 rounded-lg text-sm font-medium transition-all">
+                                        📝 Descontar Manualmente
+                                    </button>
+                                    <button class="px-4 py-2 border-2 border-red-600 text-red-600 hover:bg-red-50 rounded-lg text-sm font-medium transition-all">
+                                        🗑️ Descartar
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="p-6 hover:bg-gray-50 transition-all">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center text-xl">🍅</div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-800">Tomate Caqui - Lote TOM202401089</h3>
+                                            <p class="text-sm text-gray-600 mt-1">Fabricação: 19/01/2024 | Vencimento: <span class="font-bold text-red-600">AMANHÃ (24/01/2024)</span></p>
+                                            <p class="text-sm text-gray-600">Quantidade: <span class="font-bold">8 unidades</span> em estoque</p>
+                                            <p class="text-sm text-gray-600 mt-2">Fornecedor: Hortifruti Bom Preço | Preço Unit: R$ 2,99</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-2xl font-bold text-red-600">⚠️ 1 dia</p>
+                                        <p class="text-xs text-gray-500 mt-2">Desperdício evitado: ~4 kg</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-3 mt-4">
+                                    <button class="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-sm font-medium transition-all">
+                                        🏷️ Aplicar Desconto 50%
+                                    </button>
+                                    <button class="px-4 py-2 border-2 border-orange-600 text-orange-600 hover:bg-orange-50 rounded-lg text-sm font-medium transition-all">
+                                        📝 Descontar Manualmente
+                                    </button>
+                                    <button class="px-4 py-2 border-2 border-red-600 text-red-600 hover:bg-red-50 rounded-lg text-sm font-medium transition-all">
+                                        🗑️ Descartar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Alta -->
+                    <section class="border rounded-2xl overflow-hidden">
+                        <div class="bg-orange-50 border-l-4 border-orange-500 px-6 py-4 flex items-center justify-between cursor-pointer hover:bg-orange-100 transition-all" onclick="toggleSection(event, 'alta')">
+                            <div>
+                                <h2 class="text-xl font-bold text-orange-800">🟠 ALTA - Próximo a vencer (2-7 dias)</h2>
+                                <p class="text-orange-700 text-sm">28 produtos requerem monitoramento</p>
+                            </div>
+                            <span class="text-2xl text-orange-600">▶</span>
+                        </div>
+                        <div id="alta" class="hidden divide-y divide-gray-200">
+                            <div class="p-6 hover:bg-gray-50 transition-all">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-xl">🧡</div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-800">Laranja Pera - Lote LAR202401055</h3>
+                                            <p class="text-sm text-gray-600 mt-1">Fabricação: 20/01/2024 | Vencimento: <span class="font-bold text-orange-600">28/01/2024</span></p>
+                                            <p class="text-sm text-gray-600">Quantidade: <span class="font-bold">143 unidades</span> em estoque</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-2xl font-bold text-orange-600">⚠️ 5 dias</p>
+                                        <p class="text-xs text-gray-500 mt-2">Desperdício evitado: ~71 kg</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-3 mt-4">
+                                    <button class="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-sm font-medium transition-all">
+                                        🏷️ Aplicar Desconto 15%
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Média -->
+                    <section class="border rounded-2xl overflow-hidden">
+                        <div class="bg-yellow-50 border-l-4 border-yellow-500 px-6 py-4 flex items-center justify-between cursor-pointer hover:bg-yellow-100 transition-all" onclick="toggleSection(event, 'media')">
+                            <div>
+                                <h2 class="text-xl font-bold text-yellow-800">🟡 MÉDIA - Próximo a vencer (7-15 dias)</h2>
+                                <p class="text-yellow-700 text-sm">45 produtos sob monitoramento</p>
+                            </div>
+                            <span class="text-2xl text-yellow-600">▶</span>
+                        </div>
+                        <div id="media" class="hidden divide-y divide-gray-200">
+                            <div class="p-6 text-gray-600">
+                                Seção recolhida. Clique para expandir.
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Resumo de Ações Recomendadas -->
+                <div class="mt-8 bg-green-50 border border-green-200 rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-green-800 mb-4">✅ Resumo de Ações Recomendadas Hoje</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white border border-green-200 rounded-xl p-4">
+                            <p class="text-green-700 font-semibold">Descontos a Aplicar</p>
+                            <p class="text-3xl font-bold text-green-800 mt-2">12</p>
+                            <p class="text-sm text-gray-600 mt-2">Produtos requerem ação imediata</p>
+                        </div>
+                        <div class="bg-white border border-green-200 rounded-xl p-4">
+                            <p class="text-green-700 font-semibold">Economia Prevista</p>
+                            <p class="text-3xl font-bold text-green-800 mt-2">~200 kg</p>
+                            <p class="text-sm text-gray-600 mt-2">De desperdício evitado hoje</p>
+                        </div>
+                        <div class="bg-white border border-green-200 rounded-xl p-4">
+                            <p class="text-green-700 font-semibold">CO₂ Evitado</p>
+                            <p class="text-3xl font-bold text-green-800 mt-2">~85 kg</p>
+                            <p class="text-sm text-gray-600 mt-2">Emissões evitadas em aterros</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleSection(event, sectionId) {
+            const section = document.getElementById(sectionId);
+            const button = event.currentTarget.querySelector('span');
+            
+            section.classList.toggle('hidden');
+            button.textContent = section.classList.contains('hidden') ? '▶' : '▼';
+        }
+    </script>
+</body>
+</html>

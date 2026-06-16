@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Market - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="app-helper.js"></script>
+</head>
+<body class="bg-gradient-to-br from-green-50 to-green-100 min-h-screen flex items-center justify-center font-sans">
+    <div class="max-w-md w-full mx-4">
+        <!-- Card de Login -->
+        <div class="bg-white rounded-3xl shadow-2xl p-8">
+            <!-- Logo -->
+            <div class="flex justify-center mb-8">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg">
+                    <span class="text-3xl font-bold text-white">S</span>
+                </div>
+            </div>
+
+            <!-- Título -->
+            <h1 class="text-3xl font-bold text-center text-gray-800 mb-2">Smart Market</h1>
+            <p class="text-center text-gray-600 mb-8">Gestão Inteligente de Estoque</p>
+
+            <!-- Abas -->
+            <div class="flex gap-4 mb-8">
+                <button id="loginTab" class="flex-1 py-3 px-4 rounded-xl font-semibold border-b-4 border-green-600 text-green-600 bg-green-50 transition-all">
+                    Login
+                </button>
+                <button id="signupTab" class="flex-1 py-3 px-4 rounded-xl font-semibold border-b-4 border-gray-300 text-gray-600 hover:bg-gray-50 transition-all">
+                    Cadastro
+                </button>
+            </div>
+
+            <!-- Formulário de Login -->
+            <form id="loginForm" class="space-y-5">
+                <!-- Email -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        E-mail
+                    </label>
+                    <input 
+                        id="loginEmail"
+                        type="email" 
+                        placeholder="seu.email@empresa.com"
+                        required
+                        class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"
+                    />
+                </div>
+
+                <!-- Senha -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Senha
+                    </label>
+                    <input 
+                        id="loginPassword"
+                        type="password" 
+                        placeholder="••••••••"
+                        required
+                        class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"
+                    />
+                </div>
+
+                <!-- Lembrar e Recuperar -->
+                <div class="flex items-center justify-between text-sm">
+                    <label class="flex items-center gap-2 text-gray-700">
+                        <input type="checkbox" class="w-4 h-4 rounded border-gray-300">
+                        Lembrar-me
+                    </label>
+                </div>
+
+                 <!-- Mensagem de erro -->
+                 <div id="loginError" class="hidden text-red-600 text-sm bg-red-50 p-3 rounded-xl">
+                     <div id="loginErrorMessage"></div>
+                     <button type="button" id="loginErrorSignupBtn" class="text-green-600 font-bold hover:text-green-700 underline mt-2 hidden">
+                         Clique aqui para se cadastrar
+                     </button>
+                 </div>
+
+                <!-- Botão Login -->
+                <button 
+                    type="submit"
+                    id="loginBtn"
+                    class="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-3 rounded-xl transition-all shadow-lg hover:shadow-xl mt-8"
+                >
+                    Entrar
+                </button>
+            </form>
+
+            <!-- Formulário de Cadastro -->
+            <form id="signupForm" class="space-y-5 hidden">
+                <!-- Email -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        E-mail
+                    </label>
+                    <input 
+                        id="signupEmail"
+                        type="email" 
+                        placeholder="seu.email@empresa.com"
+                        required
+                        class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"
+                    />
+                </div>
+
+                <!-- Senha -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Senha
+                    </label>
+                    <input 
+                        id="signupPassword"
+                        type="password" 
+                        placeholder="••••••••"
+                        required
+                        class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"
+                    />
+                </div>
+
+                <!-- Confirmar Senha -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Confirmar Senha
+                    </label>
+                    <input 
+                        id="signupPasswordConfirm"
+                        type="password" 
+                        placeholder="••••••••"
+                        required
+                        class="w-full border-2 border-gray-200 rounded-xl p-4 focus:outline-none focus:border-green-500 transition-all"
+                    />
+                </div>
+
+                <!-- Mensagem de erro -->
+                <div id="signupError" class="hidden text-red-600 text-sm bg-red-50 p-3 rounded-xl"></div>
+
+                <!-- Botão Cadastro -->
+                <button 
+                    type="submit"
+                    id="signupBtn"
+                    class="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-3 rounded-xl transition-all shadow-lg hover:shadow-xl mt-8"
+                >
+                    Cadastrar
+                </button>
+            </form>
+
+            <!-- Rodapé -->
+            <p class="text-center text-sm text-gray-600 mt-6">
+                © 2024 Smart Market. Todos os direitos reservados.
+            </p>
+        </div>
+
+        <!-- Informações de Contato -->
+        <div class="text-center mt-8 text-gray-600 text-sm">
+            <p class="mt-2">Ambiente de Desenvolvimento - Localhost</p>
+        </div>
+    </div>
+
+    <script>
+        // Alternar entre abas
+        document.getElementById('loginTab').addEventListener('click', function() {
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('signupForm').classList.add('hidden');
+            document.getElementById('loginTab').classList.add('border-green-600', 'text-green-600', 'bg-green-50');
+            document.getElementById('loginTab').classList.remove('border-gray-300', 'text-gray-600');
+            document.getElementById('signupTab').classList.add('border-gray-300', 'text-gray-600');
+            document.getElementById('signupTab').classList.remove('border-green-600', 'text-green-600', 'bg-green-50');
+        });
+
+        document.getElementById('signupTab').addEventListener('click', function() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('signupForm').classList.remove('hidden');
+            document.getElementById('signupTab').classList.add('border-green-600', 'text-green-600', 'bg-green-50');
+            document.getElementById('signupTab').classList.remove('border-gray-300', 'text-gray-600');
+            document.getElementById('loginTab').classList.add('border-gray-300', 'text-gray-600');
+            document.getElementById('loginTab').classList.remove('border-green-600', 'text-green-600', 'bg-green-50');
+        });
+
+        // Submissão do formulário de login
+         document.getElementById('loginForm').addEventListener('submit', async function(e) {
+             e.preventDefault();
+             
+             const email = document.getElementById('loginEmail').value;
+             const password = document.getElementById('loginPassword').value;
+             const errorDiv = document.getElementById('loginError');
+             const errorMessage = document.getElementById('loginErrorMessage');
+             const signupBtn = document.getElementById('loginErrorSignupBtn');
+             const loginBtn = document.getElementById('loginBtn');
+
+             errorDiv.classList.add('hidden');
+             loginBtn.disabled = true;
+             loginBtn.textContent = 'Entrando...';
+
+             try {
+                 const result = await login(email, password);
+                 if (result.success) {
+                     window.location.href = '/2-dashboard.html';
+                 } else {
+                     // Diferenciar entre usuário não existe vs credenciais inválidas
+                     if (result.errorType === 'user_not_found') {
+                         errorMessage.textContent = 'Usuário não existe. Deseja se cadastrar?';
+                         signupBtn.classList.remove('hidden');
+                         signupBtn.removeEventListener('click', switchToSignup);
+                         signupBtn.addEventListener('click', switchToSignup);
+                     } else if (result.errorType === 'invalid_credentials') {
+                         errorMessage.textContent = 'Email ou senha incorretos';
+                         signupBtn.classList.add('hidden');
+                     } else {
+                         errorMessage.textContent = result.error;
+                         signupBtn.classList.add('hidden');
+                     }
+                     
+                     errorDiv.classList.remove('hidden');
+                 }
+             } catch (error) {
+                 errorMessage.textContent = 'Erro ao conectar com o servidor';
+                 signupBtn.classList.add('hidden');
+                 errorDiv.classList.remove('hidden');
+             } finally {
+                 loginBtn.disabled = false;
+                 loginBtn.textContent = 'Entrar';
+             }
+         });
+
+         // Função auxiliar para trocar de aba
+         function switchToSignup() {
+             document.getElementById('signupTab').click();
+         }
+
+         // Submissão do formulário de cadastro
+         document.getElementById('signupForm').addEventListener('submit', async function(e) {
+             e.preventDefault();
+             
+             const email = document.getElementById('signupEmail').value;
+             const password = document.getElementById('signupPassword').value;
+             const passwordConfirm = document.getElementById('signupPasswordConfirm').value;
+             const errorDiv = document.getElementById('signupError');
+             const signupBtn = document.getElementById('signupBtn');
+
+             errorDiv.classList.add('hidden');
+
+             if (password !== passwordConfirm) {
+                 errorDiv.textContent = 'As senhas não conferem';
+                 errorDiv.classList.remove('hidden');
+                 return;
+             }
+
+             signupBtn.disabled = true;
+             signupBtn.textContent = 'Cadastrando...';
+
+             try {
+                 // Por enquanto, apenas fazer login para simular cadastro
+                 const result = await login(email, password);
+                 if (result.success) {
+                     window.location.href = '/2-dashboard.html';
+                 } else {
+                     errorDiv.textContent = result.error;
+                     errorDiv.classList.remove('hidden');
+                 }
+             } catch (error) {
+                 errorDiv.textContent = 'Erro ao conectar com o servidor';
+                 errorDiv.classList.remove('hidden');
+             } finally {
+                 signupBtn.disabled = false;
+                 signupBtn.textContent = 'Cadastrar';
+             }
+         });
+
+        // Se já está logado, redirecionar
+        if (isAuthenticated()) {
+            window.location.href = '/2-dashboard.html';
+        }
+    </script>
+</body>
+</html>

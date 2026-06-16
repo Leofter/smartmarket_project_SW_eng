@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "sku": "SKU001",
+    "nome": "Coca-Cola 2L",
+    "barcode": "7898200001234",
+    "categoria": "Bebidas",
+    "estoque_atual": 245,
+    "estoque_minimo": 50,
+    "unidade": "Unidade",
+    "preco_custo": 3.5,
+    "preco_venda": 7.5,
+    "margem_lucro": 114,
+    "marca": "Coca-Cola",
+    "peso_volume": "2L",
+    "descricao": "Refrigerante Coca-Cola 2 litros",
+    "validade_media": 180,
+    "certificacoes": "ISO 9001",
+    "status": "Ativo",
+    "data_criacao": "2026-05-19T12:56:56.635Z"
+  },
+  {
+    "id": "2",
+    "sku": "SKU002",
+    "nome": "Iogurte Natural 500g",
+    "barcode": "7898200001235",
+    "categoria": "Laticínios",
+    "estoque_atual": 89,
+    "estoque_minimo": 30,
+    "unidade": "Unidade",
+    "preco_custo": 2.8,
+    "preco_venda": 4.2,
+    "margem_lucro": 50,
+    "marca": "Nestlé",
+    "peso_volume": "500g",
+    "descricao": "Iogurte Natural integral",
+    "validade_media": 30,
+    "certificacoes": "ISO 9001",
+    "status": "Ativo",
+    "data_criacao": "2026-05-19T12:56:56.637Z"
+  }
+]
